@@ -1,26 +1,23 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
-            {{ 'Create Workout' }}
+            {{ 'Create Exercise' }}
         </h2>
     </x-slot>
     <div class="font-sans antialiased">
         <div class="flex flex-col items-center pt-6 bg-gray-100 sm:justify-start sm:pt-0 min-h-fit">
-
             <div class="w-full px-16 py-20 mt-6 overflow-hidden bg-white rounded-lg lg:max-w-4xl">
-
                 <div class="mb-4">
-                    <h1 class="font-serif text-3xl font-bold">Create Workout</h1>
+                    <h1 class="font-serif text-3xl font-bold">Create Exercise</h1>
                 </div>
                 <div class="w-full px-6 py-4 bg-white rounded shadow-md ring-1 ring-gray-900/10">
-                    <form method="POST" action="{{ route('workouts.index') }}">
+                    <form action="{{ route('exercises.index') }}" method="POST">
                         @csrf
                         <!-- Name -->
                         <div>
                             <label class="block text-sm font-medium text-gray-700" for="name">
                                 Name
                             </label>
-
                             <input
                                 class="block w-full mt-1 border-gray-300 rounded-md shadow-sm placeholder:text-gray-400 placeholder:text-right focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                 type="text" name="name" value="{{old('name')}}">
@@ -29,32 +26,18 @@
                                 {{ $message }}
                             </span>
                             @enderror
-                        </div>
-                        <!-- Description -->
-                        <div class="mt-4">
-                            <label class="block text-sm font-medium text-gray-700" for="description">
-                                Description
+                        </div>  
+                        <div class="mt-4 mb-6">
+                            <label class="block text-sm font-medium text-gray-700" for="category">
+                                <span class=""> Categories: </span>
+                                <select class="block w-full mt-1" name="category_id">
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}">
+                                            {{ $category->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </label>
-                            <textarea name="description"
-                                class="block w-full mt-1 border-gray-300 rounded-md shadow-sm placeholder:text-gray-400 placeholder:text-right focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                                rows="4" placeholder="400"> {{old('description')}}</textarea>
-                            @error('description')
-                            <span class="text-sm text-red-600">
-                                {{ $message }}
-                            </span>
-                            @enderror
-                        </div>
-                        <!-- Datum -->
-                        <div class="mt-4">
-                            <label class="block text-sm font-medium text-gray-700" for="datum">
-                                Datum
-                            </label>
-                            <x-text-input id="datum" class="block w-full mt-1" type="date" name="datum" required />
-                            @error('datum')
-                            <span class="text-sm text-red-600">
-                                {{ $message }}
-                            </span>
-                            @enderror
                         </div>
                         <div class="flex items-center justify-start mt-4">
                             <button type="submit"
