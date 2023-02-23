@@ -13,8 +13,6 @@ class WorkoutController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    private $categories = ['Rücken', 'Schultern', 'Brust', "Bizeps", "Trizeps", "Beine"];
-
     public function index()
     {
         $workouts = Workout::orderBy('updated_at', 'desc')->paginate(5);
@@ -28,7 +26,7 @@ class WorkoutController extends Controller
      */
     public function create()
     {   
-        return view('workouts.create')->with('categories', $this->categories);
+        return view('workouts.create');
     }
 
     /**
@@ -43,8 +41,7 @@ class WorkoutController extends Controller
         Workout::create([
             'name' => $request->name,
             'description' => $request->description,
-            'datum' => $request->datum,
-            'category' => $request->category
+            'datum' => $request->datum
         ]);
         // Workout::create($request->validated());
         return redirect()->route('workouts.index')->with('message', 'Workout created successfully');
@@ -70,8 +67,7 @@ class WorkoutController extends Controller
     public function edit(Workout $workout)
     {
         return view('workouts.edit')->with([
-            'workout' => $workout,
-            'categories' => $this->categories
+            'workout' => $workout
         ]);
     }
 
@@ -87,8 +83,7 @@ class WorkoutController extends Controller
         $workout->update([
             'name' => $request->name,
             'description' => $request->description,
-            'datum' => $request->datum,
-            'category' => $request->category
+            'datum' => $request->datum
         ]);
         return redirect()->route('workouts.index')->with('message', 'Workout updated successfully');
     }
