@@ -47,7 +47,7 @@ class WorkoutController extends Controller
             'category' => $request->category
         ]);
         // Workout::create($request->validated());
-        return redirect()->route('workouts.index')->with('message', $request->category);
+        return redirect()->route('workouts.index')->with('message', 'Workout created successfully');
     }
 
     /**
