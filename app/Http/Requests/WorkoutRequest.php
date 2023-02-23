@@ -25,7 +25,8 @@ class WorkoutRequest extends FormRequest
     {
         return [
             'name' => ['required', 'max:80'],
-            'description'  => ['required']
+            'description'  => ['required'],
+            'datum' => ['required']
         ];
     }
 }

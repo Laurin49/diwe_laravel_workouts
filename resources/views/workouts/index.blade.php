@@ -35,7 +35,7 @@
                                     Beschreibung
                                 </th>
                                 <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                    Created At
+                                    Datum
                                 </th>
                                 <th class="text-sm text-left border-b border-gray-200 gray-500 bg-gray-50" colspan="2"">
                                     Action
@@ -59,9 +59,7 @@
                                     {{ $workout->description }}
                                 </td>
                                 <td class="px-6 py-3 border-b border-gray-200 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        {{ $workout->created_at }}
-                                    </div>
+                                    {{ date('d.m.Y', strtotime($workout->datum)) }}
                                 </td>
                                 <td class="text-sm font-medium leading-5 text-center whitespace-no-wrap border-b border-gray-200 ">
                                     <a href="{{ route('workouts.edit', $workout->id) }}" class="text-indigo-600 hover:text-indigo-900">
@@ -89,6 +87,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="px-2 py-2">
+                        {{ $workouts->links() }}
+                    </div>
                 </div>
             </div>
         </div>

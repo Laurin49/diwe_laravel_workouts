@@ -13,9 +13,11 @@ class WorkoutController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private $categories = ['Rücken', 'Schultern', 'Brust', "Bizeps", "Trizeps", "Beine"];
+
     public function index()
     {
-        $workouts = Workout::latest()->paginate(10);
+        $workouts = Workout::orderBy('updated_at', 'desc')->paginate(5);
         return view('workouts.index', compact('workouts'));
     }
 
@@ -25,8 +27,8 @@ class WorkoutController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('workouts.create');
+    {   
+        return view('workouts.create')->with('categories', $this->categories);
     }
 
     /**
@@ -37,8 +39,15 @@ class WorkoutController extends Controller
      */
     public function store(WorkoutRequest $request)
     {
-        Workout::create($request->validated());
-        return redirect()->route('workouts.index')->with('message', 'Workout created successfully');
+        echo $request->category;
+        Workout::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'datum' => $request->datum,
+            'category' => $request->category
+        ]);
+        // Workout::create($request->validated());
+        return redirect()->route('workouts.index')->with('message', $request->category);
     }
 
     /**
@@ -60,7 +69,10 @@ class WorkoutController extends Controller
      */
     public function edit(Workout $workout)
     {
-        return view('workouts.edit', compact('workout'));
+        return view('workouts.edit')->with([
+            'workout' => $workout,
+            'categories' => $this->categories
+        ]);
     }
 
     /**
@@ -74,7 +86,9 @@ class WorkoutController extends Controller
     {
         $workout->update([
             'name' => $request->name,
-            'description' => $request->description
+            'description' => $request->description,
+            'datum' => $request->datum,
+            'category' => $request->category
         ]);
         return redirect()->route('workouts.index')->with('message', 'Workout updated successfully');
     }

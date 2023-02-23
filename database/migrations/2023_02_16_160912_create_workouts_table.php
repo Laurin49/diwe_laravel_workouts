@@ -19,6 +19,9 @@ return new class extends Migration
             $table->text('description');
             $table->timestamps();
         });
+        Schema::table('workouts', function (Blueprint $table) {
+            $table->date('datum')->after('description');
+        });
     }
 
     /**
