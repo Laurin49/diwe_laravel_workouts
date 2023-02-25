@@ -9,4 +9,8 @@ class Workout extends Model
 {
     use HasFactory;
     protected $fillable = ['name', 'description', 'datum', 'category'];
+
+    public function workitems() {
+        return $this->belongsToMany(WorkItems::class);
+    }
 }

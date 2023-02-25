@@ -13,4 +13,8 @@ class Exercise extends Model
     public function category() {
         return $this->belongsTo(Category::class);
     }
+
+    public function workitems() {
+        return $this->hasMany(WorkItem::class);
+    }
 }

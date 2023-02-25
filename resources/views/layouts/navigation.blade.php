@@ -31,6 +31,11 @@
                         {{ __('Exercises') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('workitems.index')" :active="request()->routeIs('workitems')">
+                        {{ __('WorkItems') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->
@@ -93,6 +98,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('exercises.index')" :active="request()->routeIs('exercises')">
                 {{ __('Exercises') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('workitems.index')" :active="request()->routeIs('workitems')">
+                {{ __('WorkItems') }}
             </x-responsive-nav-link>
         </div>
 
